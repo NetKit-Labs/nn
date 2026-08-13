@@ -1,0 +1,25 @@
+.TH NN-CONVERT 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-convert \- conversion frontend
+.SH SYNOPSIS
+.B nn convert [options] <input>
+.SH DESCRIPTION
+Adapter-based conversion. Currently IR to ONNX is available; other routes report unavailable.
+.SH OPTIONS
+.TP
+.B \-\-to FORMAT
+Destination format.
+.TP
+.B \-o, \-\-output FILE
+Output path.
+.TP
+.B \-\-list
+List conversion routes.
+.SH EXIT STATUS
+0 success; 7 conversion unavailable.
+.SH EXAMPLES
+.nf
+nn convert --list
+.fi
+.SH SEE ALSO
+nn-formats(1), nn-optimize(1)

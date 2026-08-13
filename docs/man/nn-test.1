@@ -1,0 +1,15 @@
+.TH NN-TEST 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-test \- run deterministic test vectors
+.SH SYNOPSIS
+.B nn test [options] <model> <tests>
+.SH DESCRIPTION
+Load a directory of npy files or a manifest.json of named inputs/expected outputs.
+.SH EXIT STATUS
+0 all pass; 9 failure.
+.SH EXAMPLES
+.nf
+nn test model.onnx tests/
+.fi
+.SH SEE ALSO
+nn-validate(1), nn-run(1)

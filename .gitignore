@@ -1,0 +1,54 @@
+# Build
+build/
+build-*/
+cmake-build-*/
+out/
+compile_commands.json
+.cache/
+CMakeUserPresets.json
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+*.user
+*.suo
+
+# Compiled
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+*.obj
+*.lib
+*.pdb
+
+# Sanitizer / coverage
+*.profraw
+*.profdata
+default.profraw
+*.gcda
+*.gcno
+*.gcov
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Generated test artifacts
+/tmp/
+*.log
+
+# Packaging
+dist/
+*.deb
+*.rpm
+*.tar.gz
+*.zip

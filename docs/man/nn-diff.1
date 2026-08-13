@@ -1,0 +1,24 @@
+.TH NN-DIFF 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-diff \- semantic comparison of two models
+.SH SYNOPSIS
+.B nn diff
+[\fIoptions\fR]
+.I old
+.I new
+.SH DESCRIPTION
+Compare graph topology, tensors, operators, and optionally numeric weights. Exit status 0 means no relevant difference; 1 means differences were found.
+.SH OPTIONS
+.TP
+.B \-\-weights
+Numeric weight comparison.
+.TP
+.B \-\-atol \fIVALUE\fR
+Absolute tolerance.
+.TP
+.B \-\-rtol \fIVALUE\fR
+Relative tolerance.
+.SH EXIT STATUS
+0 no relevant difference; 1 differences found; 2+ error.
+.SH SEE ALSO
+nn(1), nn-inspect(1), nn-compare(1)

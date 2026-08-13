@@ -1,0 +1,40 @@
+.TH NN-OPS 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-ops \- list operators in a model
+.SH SYNOPSIS
+.B nn ops [options] <model>
+.SH DESCRIPTION
+List operators, optionally grouped or filtered.
+.SH OPTIONS
+.TP
+.B \-\-by\-type
+Group by operator type.
+.TP
+.B \-\-by\-cost
+Sort by compute cost.
+.TP
+.B \-\-by\-memory
+Sort by memory.
+.TP
+.B \-\-details
+Per-node details.
+.TP
+.B \-\-unsupported
+List unknown/unrecognized ops.
+.TP
+.B \-\-canonical
+Use canonical names.
+.TP
+.B \-\-native
+Use native names.
+.TP
+.B \-\-op TYPE
+Filter by operator type.
+.SH EXIT STATUS
+0 success.
+.SH EXAMPLES
+.nf
+nn ops model.onnx
+.fi
+.SH SEE ALSO
+nn-inspect(1), nn-compute(1)

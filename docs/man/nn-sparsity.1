@@ -1,0 +1,19 @@
+.TH NN-SPARSITY 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-sparsity \- analyze weight sparsity
+.SH SYNOPSIS
+.B nn sparsity [options] <model>
+.SH DESCRIPTION
+Count zeros and near-zeros in constant tensors.
+.SH OPTIONS
+.TP
+.B \-\-threshold VALUE
+Near-zero threshold.
+.SH EXIT STATUS
+0 success.
+.SH EXAMPLES
+.nf
+nn sparsity model.onnx --threshold 1e-6
+.fi
+.SH SEE ALSO
+nn-quant(1), nn-tensors(1)

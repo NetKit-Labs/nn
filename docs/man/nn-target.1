@@ -1,0 +1,25 @@
+.TH NN-TARGET 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-target \- deployability against a hardware profile
+.SH SYNOPSIS
+.B nn target [options] <model>
+.SH DESCRIPTION
+Compare estimated RAM/compute against a built-in or JSON target profile.
+.SH OPTIONS
+.TP
+.B \-\-target NAME
+Built-in target name.
+.TP
+.B \-\-target\-file FILE
+JSON target description.
+.TP
+.B \-\-accelerator FILE
+JSON accelerator description.
+.SH EXIT STATUS
+0 fits; 1 does not fit.
+.SH EXAMPLES
+.nf
+nn target model.onnx --target cortex-m4f
+.fi
+.SH SEE ALSO
+nn-targets(1), nn-memory(1)

@@ -1,0 +1,20 @@
+.TH NN-MEMORY 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-memory \- analyze model memory requirements
+.SH SYNOPSIS
+.B nn memory
+[\fIoptions\fR]
+.I model
+.SH DESCRIPTION
+Estimate weight storage, activation lifetimes, and peak RAM. Figures that are estimated rather than measured are labeled as such.
+.SH OPTIONS
+.TP
+.B \-\-timeline
+Print tensor lifetime timeline.
+.TP
+.B \-\-plan
+Print a static arena plan.
+.SH EXIT STATUS
+0 success.
+.SH SEE ALSO
+nn(1), nn-inspect(1), nn-target(1)

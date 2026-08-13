@@ -1,0 +1,19 @@
+.TH NN-COMPUTE 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-compute \- estimate MACs and FLOPs
+.SH SYNOPSIS
+.B nn compute [options] <model>
+.SH DESCRIPTION
+Static compute estimates from shapes and operators. Unknown ops are counted separately.
+.SH OPTIONS
+.TP
+.B \-\-per\-node
+Per-node costs.
+.SH EXIT STATUS
+0 success.
+.SH EXAMPLES
+.nf
+nn compute model.onnx
+.fi
+.SH SEE ALSO
+nn-ops(1), nn-memory(1)

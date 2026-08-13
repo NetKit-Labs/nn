@@ -1,0 +1,43 @@
+.TH NN 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn \- neural-network engineering toolkit
+.SH SYNOPSIS
+.B nn
+[\fIglobal options\fR]
+.I command
+[\fIargs\fR]
+.SH DESCRIPTION
+Inspect, analyze, compare, and (optionally) execute neural-network artifacts from the command line.
+One native executable, subcommands, no GUI. Execution is an optional convenience via linked runtimes
+(ONNX Runtime, LiteRT); inspection does not require a runtime.
+.SH GLOBAL OPTIONS
+.TP
+.B \-\-help
+Show help.
+.TP
+.B \-\-version
+Print version.
+.TP
+.B \-v, \-\-verbose
+Increase verbosity.
+.TP
+.B \-q, \-\-quiet
+Quiet mode.
+.TP
+.B \-\-json
+JSON output (schema_version 1 where applicable).
+.TP
+.B \-\-yaml
+YAML output.
+.TP
+.B \-\-porcelain
+Stable machine-readable text (tab-separated key/value).
+.TP
+.B \-\-threads \fIN\fR
+Thread hint for runtimes that honor it.
+.SH COMMANDS
+inspect, ops, tensors, io, metadata, hash, diff, graph, memory, compute, quant, sparsity, lint,
+run, compare, test, validate, regression, benchmark, profile, compat, target, partition,
+convert, optimize, extract, canonicalize, bisect, doctor, formats, backends, targets, config, help, version.
+.SH SEE ALSO
+nn-inspect(1), nn-run(1), nn-compare(1), nn-diff(1), nn-formats(1), nn-doctor(1)

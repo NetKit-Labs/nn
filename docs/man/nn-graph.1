@@ -1,0 +1,37 @@
+.TH NN-GRAPH 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-graph \- export the compute graph
+.SH SYNOPSIS
+.B nn graph [options] <model>
+.SH DESCRIPTION
+Write the graph as text, DOT, mermaid, or JSON. No GUI.
+.SH OPTIONS
+.TP
+.B \-f, \-\-format FMT
+dot, mermaid, json, or text.
+.TP
+.B \-\-from NODE
+Start node.
+.TP
+.B \-\-to NODE
+End node.
+.TP
+.B \-\-op TYPE
+Filter op type.
+.TP
+.B \-\-depth N
+Neighborhood depth.
+.TP
+.B \-\-collapse\-activations
+Collapse activations.
+.TP
+.B \-\-collapse\-constants
+Collapse constants.
+.SH EXIT STATUS
+0 success.
+.SH EXAMPLES
+.nf
+nn graph model.onnx --format dot
+.fi
+.SH SEE ALSO
+nn-inspect(1), nn-ops(1)

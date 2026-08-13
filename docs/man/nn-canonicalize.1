@@ -1,0 +1,15 @@
+.TH NN-CANONICALIZE 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-canonicalize \- write a stable canonical representation
+.SH SYNOPSIS
+.B nn canonicalize [options] <model>
+.SH DESCRIPTION
+Print a weight-free canonical graph text suitable for hashing and diffing.
+.SH EXIT STATUS
+0 success.
+.SH EXAMPLES
+.nf
+nn canonicalize model.onnx
+.fi
+.SH SEE ALSO
+nn-hash(1), nn-diff(1)

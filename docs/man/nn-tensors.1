@@ -1,0 +1,37 @@
+.TH NN-TENSORS 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-tensors \- list tensors in a model
+.SH SYNOPSIS
+.B nn tensors [options] <model>
+.SH DESCRIPTION
+List tensors with optional filters.
+.SH OPTIONS
+.TP
+.B \-\-weights
+Constants only.
+.TP
+.B \-\-activations
+Non-constants only.
+.TP
+.B \-\-inputs
+Model inputs.
+.TP
+.B \-\-outputs
+Model outputs.
+.TP
+.B \-\-largest
+Sort by size descending.
+.TP
+.B \-\-dtype TYPE
+Filter by dtype.
+.TP
+.B \-\-name PATTERN
+Substring match on name.
+.SH EXIT STATUS
+0 success.
+.SH EXAMPLES
+.nf
+nn tensors model.onnx --largest
+.fi
+.SH SEE ALSO
+nn-inspect(1), nn-io(1)

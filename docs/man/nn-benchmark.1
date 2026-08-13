@@ -1,0 +1,28 @@
+.TH NN-BENCHMARK 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-benchmark \- benchmark inference latency
+.SH SYNOPSIS
+.B nn benchmark [options] <model>
+.SH DESCRIPTION
+Warmup then timed iterations on a selected backend.
+.SH OPTIONS
+.TP
+.B \-\-warmup N
+Warmup iterations.
+.TP
+.B \-\-iterations N
+Timed iterations.
+.TP
+.B \-\-backend NAME
+Runtime backend.
+.TP
+.B \-\-input FILE
+Input tensor.
+.SH EXIT STATUS
+0 success; 7 backend unavailable.
+.SH EXAMPLES
+.nf
+nn benchmark model.onnx --iterations 50
+.fi
+.SH SEE ALSO
+nn-profile(1), nn-run(1)

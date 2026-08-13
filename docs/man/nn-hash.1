@@ -1,0 +1,28 @@
+.TH NN-HASH 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-hash \- hash a model artifact, graph, or tensor
+.SH SYNOPSIS
+.B nn hash [options] <model>
+.SH DESCRIPTION
+SHA-256 of the file, canonical graph, weights, or a named tensor.
+.SH OPTIONS
+.TP
+.B \-\-graph
+Hash canonical graph.
+.TP
+.B \-\-weights
+Hash weight payloads.
+.TP
+.B \-\-tensor NAME
+Hash one tensor.
+.TP
+.B \-\-canonical
+Hash canonical representation.
+.SH EXIT STATUS
+0 success.
+.SH EXAMPLES
+.nf
+nn hash model.onnx --weights
+.fi
+.SH SEE ALSO
+nn-diff(1), nn-canonicalize(1)

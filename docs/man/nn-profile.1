@@ -1,0 +1,22 @@
+.TH NN-PROFILE 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-profile \- per-operator runtime profile
+.SH SYNOPSIS
+.B nn profile [options] <model>
+.SH DESCRIPTION
+Time operators when the backend can profile (reference). Other backends may report overall latency only.
+.SH OPTIONS
+.TP
+.B \-\-backend NAME
+Runtime backend.
+.TP
+.B \-\-input FILE
+Input tensor.
+.SH EXIT STATUS
+0 success; 7 if backend cannot profile.
+.SH EXAMPLES
+.nf
+nn profile model.onnx
+.fi
+.SH SEE ALSO
+nn-benchmark(1), nn-ops(1)

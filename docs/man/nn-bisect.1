@@ -1,0 +1,34 @@
+.TH NN-BISECT 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-bisect \- regression bisect over artifacts or git history
+.SH SYNOPSIS
+.B nn bisect [options]
+.SH DESCRIPTION
+Find the first bad artifact or commit. {} in --test is replaced with the artifact path.
+.SH OPTIONS
+.TP
+.B \-\-good PATH|COMMIT
+Known good.
+.TP
+.B \-\-bad PATH|COMMIT
+Known bad.
+.TP
+.B \-\-manifest FILE
+Artifact sequence JSON.
+.TP
+.B \-\-git
+Git mode.
+.TP
+.B \-\-model PATH
+Model path in repo.
+.TP
+.B \-\-test CMD
+Test command.
+.SH EXIT STATUS
+0 found; 9 test error.
+.SH EXAMPLES
+.nf
+nn bisect --good a.onnx --bad b.onnx --test './t.sh {}'
+.fi
+.SH SEE ALSO
+nn-regression(1), nn-diff(1)

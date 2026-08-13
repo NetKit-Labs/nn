@@ -1,0 +1,28 @@
+.TH NN-REGRESSION 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-regression \- compare old vs new against validation vectors
+.SH SYNOPSIS
+.B nn regression [options] <old> <new> <tests>
+.SH DESCRIPTION
+Fail if accuracy, memory, latency, or file size grow beyond policy thresholds.
+.SH OPTIONS
+.TP
+.B \-\-max\-accuracy\-loss VALUE
+Fail if accuracy drops more than VALUE.
+.TP
+.B \-\-max\-memory\-growth VALUE
+Fail if RAM grows more than this fraction.
+.TP
+.B \-\-max\-latency\-growth VALUE
+Fail if latency grows more than this fraction.
+.TP
+.B \-\-max\-model\-growth VALUE
+Fail if file size grows more than this fraction.
+.SH EXIT STATUS
+0 pass; 1 policy failure.
+.SH EXAMPLES
+.nf
+nn regression old.onnx new.onnx tests/
+.fi
+.SH SEE ALSO
+nn-compare(1), nn-validate(1)

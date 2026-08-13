@@ -1,0 +1,37 @@
+.TH NN-COMPARE 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-compare \- compare two models or backends on inputs
+.SH SYNOPSIS
+.B nn compare [options] <a> <b>
+.SH DESCRIPTION
+Without --input, compare structure. With inputs, run both models (each bound independently so ONNX vs TFLite names may differ) and compare outputs by name, then by index. Rank-4 NCHW/NHWC pairs are permuted when shapes match that layout. --activations compares intermediates when a backend can dump them (reference); ORT and LiteRT typically cannot dump all activations.
+.SH OPTIONS
+.TP
+.B \-\-input NAME=FILE
+Input tensor (npy/npz/csv/raw); repeatable.
+.TP
+.B \-\-backend NAME
+Backend for the first model.
+.TP
+.B \-\-backend2 NAME
+Backend for the second model.
+.TP
+.B \-\-activations
+Compare intermediate activations when available.
+.TP
+.B \-\-threshold VALUE
+Divergence threshold on max abs (default 1e-5).
+.TP
+.B \-\-atol VALUE
+Absolute tolerance.
+.TP
+.B \-\-rtol VALUE
+Relative tolerance.
+.SH EXIT STATUS
+0 similar; 1 different.
+.SH EXAMPLES
+.nf
+nn compare float.onnx quant.tflite --input test.npy
+.fi
+.SH SEE ALSO
+nn-diff(1), nn-run(1)

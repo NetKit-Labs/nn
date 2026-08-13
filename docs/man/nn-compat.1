@@ -1,0 +1,25 @@
+.TH NN-COMPAT 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-compat \- runtime and operator compatibility
+.SH SYNOPSIS
+.B nn compat [options] <model>
+.SH DESCRIPTION
+Check operators against a runtime capability table.
+.SH OPTIONS
+.TP
+.B \-\-runtime NAME
+Runtime name.
+.TP
+.B \-\-runtime\-version VER
+Capability table version.
+.TP
+.B \-\-target NAME
+Hardware target (alias).
+.SH EXIT STATUS
+0 compatible; 1 incompatible.
+.SH EXAMPLES
+.nf
+nn compat model.onnx --runtime onnxruntime
+.fi
+.SH SEE ALSO
+nn-target(1), nn-backends(1)

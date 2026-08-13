@@ -1,0 +1,37 @@
+.TH NN-RUN 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-run \- execute a model if a backend is available
+.SH SYNOPSIS
+.B nn run [options] <model>
+.SH DESCRIPTION
+Run inference using a compiled backend (onnxruntime, litert, or reference). Inputs may be npy, npz (ZIP-stored NumPy archive), csv, or raw. An npz with one array binds to a single input; multiple arrays match input names. --dump-all uses the reference backend when no --backend is given.
+.SH OPTIONS
+.TP
+.B \-\-backend NAME
+Runtime backend.
+.TP
+.B \-\-input NAME=FILE
+Input tensor; repeatable. FILE may be npy/npz/csv/raw.
+.TP
+.B \-\-output FILE
+Write primary output.
+.TP
+.B \-\-dump NAME
+Dump one intermediate.
+.TP
+.B \-\-dump\-all
+Dump all intermediates (reference backend).
+.TP
+.B \-\-seed N
+RNG seed for random fill.
+.TP
+.B \-\-iterations N
+Repeat count.
+.SH EXIT STATUS
+0 success; 7 backend unavailable; 8 execution failure.
+.SH EXAMPLES
+.nf
+nn run model.onnx --input input.npy
+.fi
+.SH SEE ALSO
+nn-compare(1), nn-backends(1)

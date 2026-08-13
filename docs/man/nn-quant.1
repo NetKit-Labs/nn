@@ -1,0 +1,19 @@
+.TH NN-QUANT 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-quant \- analyze quantization
+.SH SYNOPSIS
+.B nn quant [options] <model>|compare <a> <b>
+.SH DESCRIPTION
+Report quantized vs float tensors, Q/DQ nodes, and optional pairwise comparison.
+.SH OPTIONS
+.TP
+.B \-\-compare
+Compare two models (nn quant compare).
+.SH EXIT STATUS
+0 success.
+.SH EXAMPLES
+.nf
+nn quant model.tflite
+.fi
+.SH SEE ALSO
+nn-sparsity(1), nn-compare(1)

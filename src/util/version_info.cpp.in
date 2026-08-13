@@ -1,0 +1,99 @@
+#include "nn/version.h"
+
+#include <sstream>
+
+#if defined(_WIN32)
+#define NN_OS_NAME "Windows"
+#elif defined(__APPLE__)
+#define NN_OS_NAME "macOS"
+#elif defined(__linux__)
+#define NN_OS_NAME "Linux"
+#else
+#define NN_OS_NAME "unknown"
+#endif
+
+#if defined(__aarch64__) || defined(_M_ARM64)
+#define NN_ARCH_NAME "arm64"
+#elif defined(__x86_64__) || defined(_M_X64)
+#define NN_ARCH_NAME "x86-64"
+#elif defined(__i386__) || defined(_M_IX86)
+#define NN_ARCH_NAME "x86"
+#else
+#define NN_ARCH_NAME "unknown"
+#endif
+
+namespace nn {
+
+static const char kGitCommit[] = "@NN_GIT_COMMIT@";
+static const char kCompiler[] = "@NN_COMPILER_ID@";
+
+std::string version_string() {
+    std::ostringstream os;
+    os << kVersionMajor << '.' << kVersionMinor << '.' << kVersionPatch;
+    return os.str();
+}
+
+BuildInfo build_info() {
+    BuildInfo b;
+    b.version = version_string();
+    b.git_commit = kGitCommit;
+    b.compiler = kCompiler;
+    b.os = NN_OS_NAME;
+    b.architecture = NN_ARCH_NAME;
+
+#ifdef NN_ENABLE_ONNX
+    b.enabled_formats.push_back("onnx");
+#endif
+#ifdef NN_ENABLE_TFLITE
+    b.enabled_formats.push_back("tflite");
+#endif
+#ifdef NN_ENABLE_GGUF
+    b.enabled_formats.push_back("gguf");
+#endif
+#ifdef NN_ENABLE_SAFETENSORS
+    b.enabled_formats.push_back("safetensors");
+#endif
+#ifdef NN_ENABLE_PYTORCH
+    b.enabled_formats.push_back("pytorch");
+#endif
+#ifdef NN_ENABLE_EXECUTORCH
+    b.enabled_formats.push_back("executorch");
+#endif
+#ifdef NN_ENABLE_COREML
+    b.enabled_formats.push_back("coreml");
+#endif
+#ifdef NN_ENABLE_OPENVINO
+    b.enabled_formats.push_back("openvino");
+#endif
+#ifdef NN_ENABLE_TENSORRT
+    b.enabled_formats.push_back("tensorrt");
+#endif
+#ifdef NN_ENABLE_NCNN
+    b.enabled_formats.push_back("ncnn");
+#endif
+#ifdef NN_ENABLE_MNN
+    b.enabled_formats.push_back("mnn");
+#endif
+#ifdef NN_ENABLE_TFJS
+    b.enabled_formats.push_back("tfjs");
+#endif
+#ifdef NN_ENABLE_LEGACY
+    b.enabled_formats.push_back("legacy");
+#endif
+#ifdef NN_ENABLE_KERAS
+    b.enabled_formats.push_back("keras");
+#endif
+#ifdef NN_ENABLE_TENSORFLOW
+    b.enabled_formats.push_back("tensorflow");
+#endif
+    b.enabled_runtimes.push_back("reference");
+#ifdef NN_HAS_ONNXRUNTIME
+    b.enabled_runtimes.push_back("onnxruntime");
+#endif
+#ifdef NN_HAS_LITERT
+    b.enabled_runtimes.push_back("litert");
+#endif
+    return b;
+}
+
+}  // namespace nn

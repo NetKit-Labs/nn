@@ -1,0 +1,23 @@
+.TH NN-INSPECT 1 "2026" "nn 0.1.0" "NN Manual"
+.SH NAME
+nn-inspect \- summarize a neural-network model artifact
+.SH SYNOPSIS
+.B nn inspect
+[\fIoptions\fR]
+.I model
+.SH DESCRIPTION
+Print format, hashes, graph counts, inputs, outputs, and optional sections for a model file or directory.
+.SH OPTIONS
+.TP
+.B \-\-json
+Machine-readable JSON with schema_version 1.
+.TP
+.B \-\-summary
+Short summary only.
+.TP
+.B \-\-all
+Include every section.
+.SH EXIT STATUS
+0 success; 3 file error; 4 malformed; 5 unsupported format.
+.SH SEE ALSO
+nn(1), nn-diff(1), nn-memory(1)
