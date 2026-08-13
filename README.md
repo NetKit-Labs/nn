@@ -15,7 +15,7 @@ cmake -S . -B build && cmake --build build
 
 **Status:** 0.1.0. C++20, CMake 3.20+, Apache-2.0.
 
-Full usage: [docs/user-manual.md](docs/user-manual.md). Command help: `nn help <command>` or `man nn-<command>`.
+Full usage: [docs/user-manual.md](docs/user-manual.md). Captured CLI sessions (ONNX and TFLite): [docs/example-usage.md](docs/example-usage.md). Command help: `nn help <command>` or `man nn-<command>`.
 
 ## Quick start
 

@@ -4,6 +4,8 @@ Version 0.1.0. This manual describes the `nn` command-line toolkit as implemente
 
 Companion projects: [netkit](https://github.com/NetKit-Labs/netkit) (inference engine), [memkit](https://github.com/NetKit-Labs/memkit) (embedded containers). `nn` is the inspect / diff / hash tool for model files, not a production runtime.
 
+Captured command lines and output for `.onnx` and `.tflite`: [example-usage.md](example-usage.md).
+
 - [1. What nn is](#1-what-nn-is)
 - [2. Install and build](#2-install-and-build)
 - [3. Invocation](#3-invocation)
@@ -1177,6 +1179,7 @@ nn ops model.onnx --unsupported
 ## See also
 
 - [README.md](../README.md) — project overview
+- [example-usage.md](example-usage.md) — captured CLI sessions (ONNX and TFLite)
 - [exit-status.md](exit-status.md) — exit codes
 - [json-schema.md](json-schema.md) — JSON compatibility rules
 - [CONTRIBUTING.md](../CONTRIBUTING.md) — build and coding rules
