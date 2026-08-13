@@ -15,6 +15,8 @@ cmake -S . -B build && cmake --build build
 
 **Status:** 0.1.0. C++20, CMake 3.20+, Apache-2.0.
 
+Full usage: [docs/user-manual.md](docs/user-manual.md). Command help: `nn help <command>` or `man nn-<command>`.
+
 ## Quick start
 
 ```bash
