@@ -81,13 +81,11 @@ ctest --test-dir build -C Release --output-on-failure
 cmake --install build
 ```
 
-This installs the `nn` binary, public headers under `include/nn`, and man pages (`nn(1)`, `nn-inspect(1)`, …) to `share/man/man1`.
+This installs the `nn` binary and public headers under `include/nn`.
 
 ```bash
-man nn
-man nn-run
-man nn-sparsity
 nn help inspect
+nn inspect --help
 ```
 
 ### CMake options
@@ -364,7 +362,7 @@ If no `--input` is given and shapes are static, tensors are filled with **zeros*
 
 ## 10. Commands
 
-Each subsection lists synopsis, options, behavior, examples, and exit status. Online help: `nn help <command>`. Each command also has a man page: `man nn-<command>`.
+Each subsection lists synopsis, options, behavior, examples, and exit status. Online help: `nn help <command>` or `nn <command> --help`.
 
 ### inspect
 
@@ -1207,5 +1205,4 @@ nn ops model.onnx --unsupported
 - [exit-status.md](exit-status.md) — exit codes
 - [json-schema.md](json-schema.md) — JSON compatibility rules
 - [CONTRIBUTING.md](../CONTRIBUTING.md) — build and coding rules
-- Man pages in `docs/man/` (`nn(1)`, `nn-inspect(1)`, …)
 - `nn help <command>` — flags for the binary you actually built
