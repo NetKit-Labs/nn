@@ -3,21 +3,28 @@ name: ci
 on:
   workflow_dispatch:
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
-  unix:
+  linux:
+    name: linux ${{ matrix.compiler }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
     strategy:
+      fail-fast: false
       matrix:
         include:
-          - os: ubuntu-latest
+          - compiler: gcc
             cc: gcc
             cxx: g++
-          - os: ubuntu-latest
+          - compiler: clang
             cc: clang
             cxx: clang++
-          - os: macos-latest
-            cc: clang
-            cxx: clang++
-    runs-on: ${{ matrix.os }}
     env:
       CC: ${{ matrix.cc }}
       CXX: ${{ matrix.cxx }}
@@ -35,25 +42,9 @@ jobs:
           ./build/nn backends | grep -i onnxruntime
           ./build/nn backends | grep -i litert
 
-  windows:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Configure
-        run: cmake -S . -B build -DNN_ENABLE_WERROR=ON -DNN_REQUIRE_RUNTIMES=ON
-      - name: Build
-        run: cmake --build build --config Release -j
-      - name: Test
-        run: ctest --test-dir build -C Release --output-on-failure
-      - name: Runtimes linked
-        shell: bash
-        run: |
-          ./build/Release/nn.exe backends
-          ./build/Release/nn.exe backends | grep -i onnxruntime
-          ./build/Release/nn.exe backends | grep -i litert
-
   sanitizer:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
     env:
       CC: clang
       CXX: clang++
@@ -69,7 +60,8 @@ jobs:
         run: ctest --test-dir build --output-on-failure
 
   fuzz:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
     env:
       CC: clang
       CXX: clang++

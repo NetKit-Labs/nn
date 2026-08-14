@@ -1127,7 +1127,7 @@ elif [ "$status" -ne 0 ]; then
 fi
 ```
 
-GitHub Actions (this repository) does not run on push. Start a run from the Actions tab or `gh workflow run ci`. Jobs: Ubuntu GCC/Clang, macOS Clang, Windows MSVC, Clang ASan/UBSan, and a libFuzzer smoke. Unix/Windows jobs set `NN_REQUIRE_RUNTIMES=ON` so a failed ORT/LiteRT download fails the job.
+GitHub Actions does not run on push or pull requests. Start a run from the Actions tab or `gh workflow run ci`. All jobs are Linux (`ubuntu-24.04`): GCC and Clang builds with `NN_REQUIRE_RUNTIMES=ON`, Clang ASan/UBSan, and a libFuzzer smoke. macOS and Windows are not in CI.
 
 Locally:
 
