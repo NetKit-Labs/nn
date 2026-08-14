@@ -22,11 +22,11 @@ struct Graph {
     std::vector<TensorId> outputs;
     std::string doc;
 
-    const Tensor* find_tensor(TensorId id) const;
-    Tensor* find_tensor(TensorId id);
-    const Tensor* find_tensor_by_name(std::string_view name) const;
-    const Node* find_node(NodeId id) const;
-    const Node* find_node_by_name(std::string_view name) const;
+    const Tensor* find_tensor(TensorId tensor_id) const;
+    Tensor* find_tensor(TensorId tensor_id);
+    const Tensor* find_tensor_by_name(std::string_view tensor_name) const;
+    const Node* find_node(NodeId node_id) const;
+    const Node* find_node_by_name(std::string_view node_name) const;
 
     // Rebuild producer/consumer fields on tensors from node edges.
     void rebuild_use_lists();

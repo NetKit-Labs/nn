@@ -1,5 +1,6 @@
 #include "nn/runtime.h"
 
+#include "litert/c/internal/litert_logging.h"
 #include "litert/c/litert_common.h"
 #include "litert/c/litert_compiled_model.h"
 #include "litert/c/litert_environment.h"
@@ -8,9 +9,6 @@
 #include "litert/c/litert_options.h"
 #include "litert/c/litert_profiler.h"
 #include "litert/c/litert_tensor_buffer.h"
-#if !defined(__linux__)
-#include "litert/c/internal/litert_logging.h"
-#endif
 
 #include <algorithm>
 #include <chrono>
