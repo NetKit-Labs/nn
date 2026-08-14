@@ -2,7 +2,7 @@
 
 Command-line neural-network engineering toolkit.
 
-`nn` is a native Unix-style tool: **one executable, subcommands, no GUI**. Inspect, hash, diff, lint, and analyze model artifacts. Execution is optional — when ONNX Runtime or LiteRT is linked, `nn run` and `nn compare` can actually infer.
+`nn` is a native Unix-style tool: **one executable, subcommands, no GUI**. Inspect, hash, diff, lint, and analyze model artifacts — including MCU fit (`nn target`) and prune-candidate hints (`nn sparsity`). Execution is optional — when ONNX Runtime or LiteRT is linked, `nn run` and `nn compare` can actually infer.
 
 Companion to [netkit](https://github.com/NetKit-Labs/netkit) (inference engine) and [memkit](https://github.com/NetKit-Labs/memkit) (embedded containers). `nn` does not replace a runtime; it is the `objdump` / `readelf` / `git` of neural-network files.
 
@@ -26,6 +26,8 @@ nn tensors model.onnx --largest
 nn memory kws.tflite --plan
 nn diff model-v1.onnx model-v2.onnx --weights
 nn compute model.onnx
+nn sparsity kws.onnx --threshold 1e-6
+nn target kws.onnx --target cortex-m4f
 nn lint model.onnx
 nn hash model.onnx --graph
 nn compare float.onnx quant.tflite --input test.npy
@@ -41,6 +43,7 @@ Machine-readable output:
 nn inspect model.onnx --json | jq .
 nn ops model.onnx --porcelain
 nn --json formats
+nn --json sparsity model.onnx | jq '.layers[] | select(.score > 0)'
 ```
 
 ## What it does
@@ -137,7 +140,7 @@ man nn-inspect
 | `memory` | Weights, activation lifetimes, optional arena plan |
 | `compute` | Estimate MACs/FLOPs |
 | `quant` | Quantization analysis |
-| `sparsity` | Weight sparsity and prune-candidate hints |
+| `sparsity` | Weight sparsity and prune-candidate hints (inspect only) |
 | `lint` | Static correctness checks |
 | `run` | Execute with an available backend |
 | `compare` | Compare two models or backends on the same inputs |
@@ -196,7 +199,7 @@ src/cli/        option parsing, help, dispatcher
 src/commands/   one file per subcommand
 src/formats/    readers (and ONNX writer)
 src/runtime/    ORT, LiteRT, reference, tensor I/O
-src/analysis/   inspect, diff, memory, lint, …
+src/analysis/   inspect, diff, memory, lint, sparsity, …
 docs/man/       man pages
 tests/          unit, integration, fuzz
 ```

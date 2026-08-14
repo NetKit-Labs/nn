@@ -2,7 +2,7 @@
 
 Version 0.1.0. This manual describes the `nn` command-line toolkit as implemented. Flags and exit codes match `nn help <command>` and `src/cli/command.cpp`. Capabilities that are not compiled in are documented as unavailable, not as future promises.
 
-Companion projects: [netkit](https://github.com/NetKit-Labs/netkit) (inference engine), [memkit](https://github.com/NetKit-Labs/memkit) (embedded containers). `nn` is the inspect / diff / hash tool for model files, not a production runtime.
+Companion projects: [netkit](https://github.com/NetKit-Labs/netkit) (inference engine), [memkit](https://github.com/NetKit-Labs/memkit) (embedded containers). `nn` is the inspect / diff / hash / target / sparsity tool for model files, not a production runtime.
 
 Captured command lines and output for `.onnx` and `.tflite`: [example-usage.md](example-usage.md).
 
@@ -36,6 +36,8 @@ Typical work:
 nn inspect model.onnx
 nn diff old.onnx new.onnx
 nn memory kws.tflite --plan
+nn sparsity kws.onnx --threshold 1e-6
+nn target kws.onnx --target cortex-m4f
 nn run model.onnx --input input.npy
 nn compare float.onnx quant.tflite --input test.npy
 ```
@@ -84,6 +86,7 @@ This installs the `nn` binary, public headers under `include/nn`, and man pages 
 ```bash
 man nn
 man nn-run
+man nn-sparsity
 nn help inspect
 ```
 
@@ -204,6 +207,7 @@ Not every command implements JSON. Commands that do include `schema_version` (cu
 nn --json inspect model.onnx | jq -r .format
 nn --json formats | jq '.formats[] | select(.execute==true)'
 nn --json hash model.onnx | jq -r .artifact
+nn --json sparsity model.onnx | jq '.layers[] | select(.score > 0)'
 ```
 
 **YAML.** Same structure as JSON where the command supports structured output.
@@ -360,7 +364,7 @@ If no `--input` is given and shapes are static, tensors are filled with **zeros*
 
 ## 10. Commands
 
-Each subsection lists synopsis, options, behavior, examples, and exit status. Online help: `nn help <command>`.
+Each subsection lists synopsis, options, behavior, examples, and exit status. Online help: `nn help <command>`. Each command also has a man page: `man nn-<command>`.
 
 ### inspect
 
@@ -529,9 +533,12 @@ Export the compute graph. No GUI.
 | `--collapse-activations` | Collapse activations |
 | `--collapse-constants` | Collapse constants |
 
+`--format json` (or global `--json`) prints `{ "schema_version": 1, "nodes": [ { "id", "name", "op" } ] }`.
+
 ```bash
 nn graph model.onnx --format dot > model.dot
 nn graph model.onnx --format mermaid
+nn --json graph model.onnx
 ```
 
 ### memory
@@ -601,7 +608,7 @@ Estimated saved bytes/MACs assume those weak channels are dropped. That figure i
 | `--threshold VALUE` | Count `|w| <= VALUE` as near-zero (default 0) |
 | `--channel-frac VALUE` | Weak if channel L1 `<= VALUE * max` (default 0.01) |
 
-`--json` prints `schema_version` 1 with a `layers` array.
+`--json` prints `schema_version` 1 with a `layers` array. Field list: [json-schema.md](json-schema.md).
 
 ```bash
 nn sparsity model.onnx --threshold 1e-6
@@ -1164,6 +1171,7 @@ See [SECURITY.md](../SECURITY.md).
 | Windows cannot load LiteRT | Confirm `libLiteRt.dll` was copied next to `nn.exe` (CMake post-build does this when LiteRT is found) |
 | XNNPACK `INFO:` on stderr | LiteRT CPU delegate log; not an `nn` error |
 | `lint` exit 9 | Read the issue list; 9 means errors, not warnings only |
+| `weights not in memory` | Constant payload is a graph input (common in CNTK ONNX). `nn sparsity` still lists layers and MAC share; channel scores need in-file weights. |
 
 ```bash
 nn doctor
@@ -1185,8 +1193,10 @@ nn ops model.onnx --unsupported
 | IR / ModelIR | In-memory model after a successful load |
 | Native op | Name in the source format (`Conv`, `CONV_2D`, `ADD`) |
 | Porcelain | Stable tab-separated output for scripts |
+| Prune candidate | Inspect-only ranking from `nn sparsity`; `nn` does not rewrite the graph |
 | Reference | In-tree interpreter, not a production runtime |
 | schema_version | Integer in JSON objects; `1` in this release |
+| Weak channel | Conv/dense output channel whose L1 is ≤ `--channel-frac` × that layer’s max channel L1 |
 
 ---
 

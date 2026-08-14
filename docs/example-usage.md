@@ -1916,6 +1916,10 @@ nn run add.tflite --backend litert
 
 # Check MCU budget
 nn target model.tflite --target cortex-m4f
+
+# Rank prune-candidate layers (inspect only)
+nn sparsity model.onnx --threshold 1e-6
+nn --json sparsity model.onnx | jq '.layers[] | select(.score > 0)'
 ```
 
 ## See also
