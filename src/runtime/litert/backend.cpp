@@ -1,6 +1,5 @@
 #include "nn/runtime.h"
 
-#include "litert/c/internal/litert_logging.h"
 #include "litert/c/litert_common.h"
 #include "litert/c/litert_compiled_model.h"
 #include "litert/c/litert_environment.h"
@@ -9,6 +8,9 @@
 #include "litert/c/litert_options.h"
 #include "litert/c/litert_profiler.h"
 #include "litert/c/litert_tensor_buffer.h"
+#if !defined(__linux__)
+#include "litert/c/internal/litert_logging.h"
+#endif
 
 #include <algorithm>
 #include <chrono>
@@ -24,14 +26,17 @@ namespace nn {
 namespace {
 
 Error litert_error(LiteRtStatus st, std::string_view what) {
-    const char* name = LiteRtGetStatusString(st);
     std::ostringstream os;
     os << "litert: " << what;
+#if !defined(__linux__)
+    // linux_x86_64 libLiteRt.so 2.1.6 does not export LiteRtGetStatusString.
+    const char* name = LiteRtGetStatusString(st);
     if (name && *name) {
         os << ": " << name;
-    } else {
-        os << " (status " << static_cast<int>(st) << ")";
+        return error(ErrorCode::ExecutionFailure, os.str());
     }
+#endif
+    os << " (status " << static_cast<int>(st) << ")";
     return error(ErrorCode::ExecutionFailure, os.str());
 }
 
@@ -239,9 +244,12 @@ public:
         : model_ir_(std::move(model)), options_(std::move(options)) {}
 
     Status init() {
+#if !defined(__linux__)
+        // linux_x86_64 libLiteRt.so 2.1.6 does not export the logger APIs.
         if (LiteRtLogger logger = LiteRtGetDefaultLogger()) {
             LiteRtSetMinLoggerSeverity(logger, kLiteRtLogSeverityError);
         }
+#endif
 
         LiteRtEnvOption env_opts[2] = {};
         env_opts[0].tag = kLiteRtEnvOptionTagAutoRegisterAccelerators;

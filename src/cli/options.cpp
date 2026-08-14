@@ -8,12 +8,6 @@
 namespace nn {
 namespace {
 
-bool is_global_flag(std::string_view a) {
-    return a == "-h" || a == "--help" || a == "--version" || a == "-v" || a == "--verbose" ||
-           a == "-q" || a == "--quiet" || a == "--json" || a == "--yaml" || a == "--porcelain" ||
-           a == "--color" || a.rfind("--color=", 0) == 0 || a == "--output" || a == "--threads";
-}
-
 bool command_owns_output_flag(std::string_view command) {
     const CommandSpec* spec = find_command(command);
     if (!spec) {
@@ -125,7 +119,6 @@ Result<GlobalOptions> parse_global_args(int argc, char** argv) {
             continue;
         }
         rest.push_back(a);
-        (void)is_global_flag;
     }
     g.args = std::move(rest);
     return g;
