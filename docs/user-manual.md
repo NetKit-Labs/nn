@@ -1127,7 +1127,7 @@ elif [ "$status" -ne 0 ]; then
 fi
 ```
 
-GitHub Actions (this repository): configure/build/`ctest` on Ubuntu GCC/Clang, macOS Clang, and Windows; a Clang ASan/UBSan job; a libFuzzer smoke job. Unix/Windows CI sets `NN_REQUIRE_RUNTIMES=ON` so a failed ORT/LiteRT download fails the job.
+GitHub Actions (this repository) does not run on push. Start a run from the Actions tab or `gh workflow run ci`. Jobs: Ubuntu GCC/Clang, macOS Clang, Windows MSVC, Clang ASan/UBSan, and a libFuzzer smoke. Unix/Windows jobs set `NN_REQUIRE_RUNTIMES=ON` so a failed ORT/LiteRT download fails the job.
 
 Locally:
 
