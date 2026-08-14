@@ -905,6 +905,25 @@ $ nn sparsity mnist-8.onnx --threshold 1e-6    # exit 0
 Tensors considered:   8
 Tensors computed:     0
 Zero fraction:        0.000000
+Near-zero fraction:   0.000000
+Near-zero |w| <=:     0.000001
+Weak-channel cut:     1.00% of max channel L1
+Total MACs:           786.6 K
+Est. saved bytes:     0 B (upper bound)
+Est. saved MACs:      0.00 (upper bound)
+
+LAYER                OP         SHAPE            ZEROS       NEAR        WEAK     MAC%    SCORE
+-----------------------------------------------------------------------------------------------
+Convolution110       Conv       16x8x5x5         -           -           -          79.7%        -
+Convolution28        Conv       8x1x5x5          -           -           -          19.9%        -
+Times212_reshape1    Reshape    16x4x4x10        -           -           -              -        -
+Plus112              Add        16x1x1           -           -           -              -        -
+Plus214              Add        1x10             -           -           -              -        -
+Plus30               Add        8x1x1            -           -           -              -        -
+Times212_reshape0    Reshape    2                -           -           -              -        -
+Times212_reshape1    Reshape    2                -           -           -              -        -
+
+Candidates only; nn does not prune. Magnitude is a where-to-look hint, not accuracy.
 
 # stderr
 nn: warning: weights not in memory for Parameter193; sparsity not computed
@@ -917,7 +936,7 @@ nn: warning: weights not in memory for Parameter193_reshape1_shape; sparsity not
 nn: warning: weights not in memory for Parameter194; sparsity not computed
 ```
 
-CNTK keeps some weights as graph inputs rather than in-memory initializers, so sparsity cannot be computed. Warnings go to stderr.
+CNTK keeps some weights as graph inputs rather than in-memory initializers, so sparsity cannot be computed. Warnings go to stderr. Layers are still listed with MAC share.
 
 ```text
 $ nn lint mnist-8.onnx    # exit 0
@@ -1653,6 +1672,17 @@ $ nn sparsity add.tflite    # exit 0
 Tensors considered:   0
 Tensors computed:     0
 Zero fraction:        0.000000
+Near-zero fraction:   0.000000
+Near-zero |w| <=:     0.000000
+Weak-channel cut:     1.00% of max channel L1
+Total MACs:           unknown
+Est. saved bytes:     0 B (upper bound)
+Est. saved MACs:      unknown
+
+LAYER                OP         SHAPE            ZEROS       NEAR        WEAK     MAC%    SCORE
+-----------------------------------------------------------------------------------------------
+
+Candidates only; nn does not prune. Magnitude is a where-to-look hint, not accuracy.
 ```
 
 ```text

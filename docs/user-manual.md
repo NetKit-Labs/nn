@@ -588,10 +588,24 @@ nn --json quant model.tflite
 nn sparsity [options] <model>
 ```
 
-Zeros and near-zeros in constant tensors.
+Zeros, near-zeros, and prune-candidate hints for constant tensors. Inspect only: `nn` does not rewrite the graph.
+
+Each constant is joined to the Conv / Gemm / MatMul that consumes it. For conv (`Co`) and dense (`out`) weights, channels whose L1 is at most `--channel-frac` (default **0.01**) times that layer’s max channel L1 are **weak**. Rows are sorted by `weak_channel_frac × mac_share`.
+
+`--threshold` is the absolute `|w|` near-zero line and is independent of the channel cutoff.
+
+Estimated saved bytes/MACs assume those weak channels are dropped. That figure is an **upper bound**: residual Add, Concat, and depthwise→pointwise couples make the real save smaller. Magnitude is a where-to-look hint, not an accuracy claim.
+
+| Option | Meaning |
+| --- | --- |
+| `--threshold VALUE` | Count `|w| <= VALUE` as near-zero (default 0) |
+| `--channel-frac VALUE` | Weak if channel L1 `<= VALUE * max` (default 0.01) |
+
+`--json` prints `schema_version` 1 with a `layers` array.
 
 ```bash
 nn sparsity model.onnx --threshold 1e-6
+nn --json sparsity model.onnx --channel-frac 0.05
 ```
 
 ### lint

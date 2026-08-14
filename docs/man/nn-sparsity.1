@@ -1,14 +1,17 @@
 .TH NN-SPARSITY 1 "2026" "nn 0.1.0" "NN Manual"
 .SH NAME
-nn-sparsity \- analyze weight sparsity
+nn-sparsity \- weight sparsity and prune-candidate hints
 .SH SYNOPSIS
 .B nn sparsity [options] <model>
 .SH DESCRIPTION
-Count zeros and near-zeros in constant tensors.
+Count zeros and near-zeros, join weights to layers, and rank conv/dense channels with small L1 against MAC share. Inspect only; does not rewrite the graph. Estimated savings are an upper bound.
 .SH OPTIONS
 .TP
 .B \-\-threshold VALUE
-Near-zero threshold.
+Absolute |w| near-zero threshold (default 0).
+.TP
+.B \-\-channel\-frac VALUE
+Weak if channel L1 <= VALUE times the layer max (default 0.01).
 .SH EXIT STATUS
 0 success.
 .SH EXAMPLES
@@ -16,4 +19,4 @@ Near-zero threshold.
 nn sparsity model.onnx --threshold 1e-6
 .fi
 .SH SEE ALSO
-nn-quant(1), nn-tensors(1)
+nn-quant(1), nn-tensors(1), nn-compute(1)

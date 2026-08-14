@@ -96,16 +96,36 @@ struct QuantReport {
 QuantReport analyze_quantization(const ModelIR& model);
 
 struct SparsityOptions {
-    double threshold = 0.0;
+    double threshold = 0.0;          // |w| <= threshold counts as near-zero
+    double channel_l1_frac = 0.01;   // weak if channel L1 <= frac * max channel L1
 };
 
 struct TensorSparsity {
     std::string name;
+    std::string layer;
+    std::string op_type;
+    std::string canonical;
+    std::string shape;
+    uint64_t bytes = 0;
     uint64_t elements = 0;
     uint64_t zeros = 0;
     uint64_t near_zeros = 0;
     double zero_fraction = 0.0;
+    double near_zero_fraction = 0.0;
     bool computed = false;
+    std::string layout;  // conv-onnx, conv-tflite, dense-out-rows, dense-out-cols, unstructured
+    uint64_t channels = 0;
+    uint64_t weak_channels = 0;
+    double weak_channel_frac = 0.0;
+    double max_channel_l1 = 0.0;
+    uint64_t macs = 0;
+    bool macs_known = false;
+    double mac_share = 0.0;
+    double score = 0.0;  // weak_channel_frac * mac_share
+    uint64_t estimated_saved_bytes = 0;
+    uint64_t estimated_saved_macs = 0;
+    bool skip_coupled = false;
+    bool depthwise = false;
 };
 
 struct SparsityReport {
@@ -113,7 +133,15 @@ struct SparsityReport {
     uint64_t tensors_computed = 0;
     uint64_t total_elements = 0;
     uint64_t total_zeros = 0;
+    uint64_t total_near_zeros = 0;
     double overall_zero_fraction = 0.0;
+    double overall_near_zero_fraction = 0.0;
+    double threshold = 0.0;
+    double channel_l1_frac = 0.01;
+    uint64_t total_macs = 0;
+    bool total_macs_known = false;
+    uint64_t estimated_saved_bytes = 0;
+    uint64_t estimated_saved_macs = 0;
     std::vector<TensorSparsity> tensors;
     std::vector<std::string> notes;
 };

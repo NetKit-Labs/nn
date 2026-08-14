@@ -108,13 +108,16 @@ pages = {
         "nn-sparsity(1), nn-compare(1)",
     ),
     "sparsity": (
-        "analyze weight sparsity",
+        "weight sparsity and prune-candidate hints",
         "nn sparsity [options] <model>",
-        "Count zeros and near-zeros in constant tensors.",
-        [("--threshold VALUE", "Near-zero threshold.")],
+        "Count zeros and near-zeros, join weights to layers, and rank conv/dense channels with small L1 against MAC share. Inspect only; does not rewrite the graph. Estimated savings are an upper bound.",
+        [
+            ("--threshold VALUE", "Absolute |w| near-zero threshold (default 0)."),
+            ("--channel-frac VALUE", "Weak if channel L1 <= VALUE times the layer max (default 0.01)."),
+        ],
         "0 success.",
         "nn sparsity model.onnx --threshold 1e-6",
-        "nn-quant(1), nn-tensors(1)",
+        "nn-quant(1), nn-tensors(1), nn-compute(1)",
     ),
     "lint": (
         "static correctness and quality checks",

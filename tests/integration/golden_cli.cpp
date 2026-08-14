@@ -114,3 +114,23 @@ TEST(golden_porcelain_hash) {
     CHECK(r.out.find("artifact:") != std::string::npos);
     CHECK(r.out.find('\t') != std::string::npos);
 }
+
+TEST(golden_sparsity_json) {
+    const auto path = std::filesystem::temp_directory_path() / "nn_golden_sparsity.onnx";
+    nn::SimpleOnnxSpec spec;
+    spec.with_weight = true;
+    spec.weight_shape = {2, 2};
+    spec.weight = {0.f, 1e-8f, 1.f, 2.f};
+    CHECK(nn::write_simple_onnx(path, spec));
+    auto r = run_nn("--json sparsity --threshold 1e-6 " + quote(path.string()));
+    CHECK(r.rc == 0);
+    auto j = nn::parse_json(r.out);
+    CHECK(j);
+    CHECK(j.value().contains("schema_version"));
+    CHECK(j.value().at("schema_version").as_number() == 1);
+    CHECK(j.value().contains("overall_near_zero_fraction"));
+    CHECK(j.value().contains("layers"));
+    CHECK(j.value().at("layers").is_array());
+    CHECK(j.value().at("savings_are_upper_bound").as_bool());
+    CHECK(j.value().at("tensors_computed").as_number() == 1);
+}

@@ -22,7 +22,7 @@ void print_top_help(Printer& p) {
     p.println("memory      analyze memory and optional arena plan");
     p.println("compute     estimate MACs/FLOPs");
     p.println("quant       analyze quantization");
-    p.println("sparsity    analyze weight sparsity");
+    p.println("sparsity    weight sparsity and prune-candidate hints");
     p.println("lint        static correctness checks");
     p.println("run         execute with an available backend");
     p.println("compare     compare models or backends on inputs");

@@ -137,7 +137,7 @@ man nn-inspect
 | `memory` | Weights, activation lifetimes, optional arena plan |
 | `compute` | Estimate MACs/FLOPs |
 | `quant` | Quantization analysis |
-| `sparsity` | Weight sparsity |
+| `sparsity` | Weight sparsity and prune-candidate hints |
 | `lint` | Static correctness checks |
 | `run` | Execute with an available backend |
 | `compare` | Compare two models or backends on the same inputs |
